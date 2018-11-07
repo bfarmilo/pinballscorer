@@ -10,10 +10,10 @@ import Profile from '../routes/profile';
 const scoreOptions = [5, 25, 75, 100, -10, -25];
 const bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 const sounds = {
-	bing: '../assets/up.ogg',
-	buzz: '../assets/buzz.ogg',
-	bonus: '../assets/bell.ogg',
-	reset: '../assets/reset.ogg'
+	bing: `${!process.env.production ? '..' : '.'}/assets/up.ogg`,
+	buzz: `${!process.env.production ? '..' : '.'}/assets/buzz.ogg`,
+	bonus: `${!process.env.production ? '..' : '.'}/assets/bell.ogg`,
+	reset: `${!process.env.production ? '..' : '.'}/assets/reset.ogg`
 }
 
 export default class App extends Component {

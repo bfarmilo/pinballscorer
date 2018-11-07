@@ -699,10 +699,10 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 var scoreOptions = [5, 25, 75, 100, -10, -25];
 var bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 var sounds = {
-	bing: '../assets/up.ogg',
-	buzz: '../assets/buzz.ogg',
-	bonus: '../assets/bell.ogg',
-	reset: '../assets/reset.ogg'
+	bing: (!Object({}).production ? '..' : '.') + '/assets/up.ogg',
+	buzz: (!Object({}).production ? '..' : '.') + '/assets/buzz.ogg',
+	bonus: (!Object({}).production ? '..' : '.') + '/assets/bell.ogg',
+	reset: (!Object({}).production ? '..' : '.') + '/assets/reset.ogg'
 };
 
 var app__ref = Object(preact_min["h"])(header, null);
