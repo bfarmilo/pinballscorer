@@ -7,13 +7,19 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 
+import bing from '../assets/up.ogg';
+import buzz from '../assets/buzz.ogg';
+import bonus from '../assets/bell.ogg';
+import reset from '../assets/reset.ogg';
+
 const scoreOptions = [5, 25, 75, 100, -10, -25];
 const bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 const sounds = {
-	bing: `${!process.env.production ? '..' : '.'}/assets/up.ogg`,
-	buzz: `${!process.env.production ? '..' : '.'}/assets/buzz.ogg`,
-	bonus: `${!process.env.production ? '..' : '.'}/assets/bell.ogg`,
-	reset: `${!process.env.production ? '..' : '.'}/assets/reset.ogg`
+	bing,
+	buzz,
+	bonus,
+	reset,
+	none: null
 }
 
 export default class App extends Component {
@@ -29,7 +35,7 @@ export default class App extends Component {
 
 	deBounce = (delay, element) => {
 		const resetVal = element === 'sound' ? 'none' : false;
-		setTimeout(() => this.setState({[element]: resetVal}), delay);
+		setTimeout(() => this.setState({ [element]: resetVal }), delay);
 	}
 
 	addToScore = (e, points) => {
