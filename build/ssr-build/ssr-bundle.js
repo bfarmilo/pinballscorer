@@ -787,9 +787,9 @@ var app_App = function (_Component) {
 						}
 				}
 			}
-			_this.setState({ bonus: bonus });
+			_this.setState({ bonus: bonus, score: score });
 			if (bonus.size == 6) {
-				[0, 1, 2, 3].map(function (delay) {
+				[0, 1, 2, 3, 4, 5].map(function (delay) {
 					return setTimeout(function () {
 						return _this.setState({ bonus: delay % 2 === 0 ? bonus : new Set() });
 					}, delay * 250 + 500);
