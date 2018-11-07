@@ -7,10 +7,10 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 
-import bing from '../assets/up.ogg';
-import buzz from '../assets/buzz.ogg';
-import bonus from '../assets/bell.ogg';
-import reset from '../assets/reset.ogg';
+import bing from '../assets/sounds/33299__erlingx__spring.mp4';
+import buzz from '../assets/sounds/33294__erlingx__goingdown.mp4';
+import bonus from '../assets/sounds/33295__erlingx__idiidi.mp4';
+import reset from '../assets/sounds/33278__erlingx__1gear.mp4';
 
 const scoreOptions = [5, 25, 75, 100, -10, -25];
 const bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);

@@ -66,13 +66,6 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "/IKS":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "23f21e3c6909d2e3799caa9fc9a3f7fb.ogg";
-
-/***/ }),
-
 /***/ "/QC5":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -458,24 +451,17 @@ Router.Link = Link;
 
 /***/ }),
 
-/***/ "/hAC":
+/***/ "6vKB":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "adb6e23ba56bf13d4398420a3e849164.ogg";
+module.exports = __webpack_require__.p + "37e8b1198281df6f6b9eed4bac76785b.mp4";
 
 /***/ }),
 
-/***/ "8IgM":
+/***/ "BmOJ":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "8281309efaa5353aee5fe62a3eb711e8.ogg";
-
-/***/ }),
-
-/***/ "D1tX":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "7b87f7facc356fac2e149c55475faecd.ogg";
+module.exports = __webpack_require__.p + "9570f62583317d3dff727da41d8bbceb.mp4";
 
 /***/ }),
 
@@ -703,21 +689,21 @@ var profile_Profile = function (_Component) {
 }(preact_min["Component"]);
 
 
-// EXTERNAL MODULE: ./assets/up.ogg
-var up = __webpack_require__("/hAC");
-var up_default = /*#__PURE__*/__webpack_require__.n(up);
+// EXTERNAL MODULE: ./assets/sounds/33299__erlingx__spring.mp4
+var _3299__erlingx__spring = __webpack_require__("z51x");
+var _3299__erlingx__spring_default = /*#__PURE__*/__webpack_require__.n(_3299__erlingx__spring);
 
-// EXTERNAL MODULE: ./assets/buzz.ogg
-var buzz = __webpack_require__("/IKS");
-var buzz_default = /*#__PURE__*/__webpack_require__.n(buzz);
+// EXTERNAL MODULE: ./assets/sounds/33294__erlingx__goingdown.mp4
+var _3294__erlingx__goingdown = __webpack_require__("K3Ne");
+var _3294__erlingx__goingdown_default = /*#__PURE__*/__webpack_require__.n(_3294__erlingx__goingdown);
 
-// EXTERNAL MODULE: ./assets/bell.ogg
-var bell = __webpack_require__("D1tX");
-var bell_default = /*#__PURE__*/__webpack_require__.n(bell);
+// EXTERNAL MODULE: ./assets/sounds/33295__erlingx__idiidi.mp4
+var _3295__erlingx__idiidi = __webpack_require__("BmOJ");
+var _3295__erlingx__idiidi_default = /*#__PURE__*/__webpack_require__.n(_3295__erlingx__idiidi);
 
-// EXTERNAL MODULE: ./assets/reset.ogg
-var assets_reset = __webpack_require__("8IgM");
-var reset_default = /*#__PURE__*/__webpack_require__.n(assets_reset);
+// EXTERNAL MODULE: ./assets/sounds/33278__erlingx__1gear.mp4
+var _3278__erlingx__1gear = __webpack_require__("6vKB");
+var _3278__erlingx__1gear_default = /*#__PURE__*/__webpack_require__.n(_3278__erlingx__1gear);
 
 // CONCATENATED MODULE: ./components/app.js
 
@@ -745,10 +731,10 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 var scoreOptions = [5, 25, 75, 100, -10, -25];
 var bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 var sounds = {
-	bing: up_default.a,
-	buzz: buzz_default.a,
-	bonus: bell_default.a,
-	reset: reset_default.a,
+	bing: _3299__erlingx__spring_default.a,
+	buzz: _3294__erlingx__goingdown_default.a,
+	bonus: _3295__erlingx__idiidi_default.a,
+	reset: _3278__erlingx__1gear_default.a,
 	none: null
 };
 
@@ -853,6 +839,13 @@ var app_App = function (_Component) {
 
 
 /* harmony default export */ var index = __webpack_exports__["default"] = (app_App);
+
+/***/ }),
+
+/***/ "K3Ne":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "edf6abbea552c188f444cdc1e055cd56.mp4";
 
 /***/ }),
 
@@ -1192,6 +1185,13 @@ Match.Link = Link;
 
 // removed by extract-text-webpack-plugin
 module.exports = {"header":"header__2MqSo","active":"active__27Q54"};
+
+/***/ }),
+
+/***/ "z51x":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "931641dc586cb31e861d6e2358a9f03b.mp4";
 
 /***/ })
 
