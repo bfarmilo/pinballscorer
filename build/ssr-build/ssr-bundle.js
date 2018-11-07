@@ -451,17 +451,10 @@ Router.Link = Link;
 
 /***/ }),
 
-/***/ "6vKB":
+/***/ "FPU9":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "37e8b1198281df6f6b9eed4bac76785b.mp4";
-
-/***/ }),
-
-/***/ "BmOJ":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "9570f62583317d3dff727da41d8bbceb.mp4";
+module.exports = __webpack_require__.p + "9570f62583317d3dff727da41d8bbceb.m4a";
 
 /***/ }),
 
@@ -697,13 +690,13 @@ var _3299__erlingx__spring_default = /*#__PURE__*/__webpack_require__.n(_3299__e
 var _3294__erlingx__goingdown = __webpack_require__("K3Ne");
 var _3294__erlingx__goingdown_default = /*#__PURE__*/__webpack_require__.n(_3294__erlingx__goingdown);
 
-// EXTERNAL MODULE: ./assets/sounds/33295__erlingx__idiidi.mp4
-var _3295__erlingx__idiidi = __webpack_require__("BmOJ");
+// EXTERNAL MODULE: ./assets/sounds/33295__erlingx__idiidi.m4a
+var _3295__erlingx__idiidi = __webpack_require__("FPU9");
 var _3295__erlingx__idiidi_default = /*#__PURE__*/__webpack_require__.n(_3295__erlingx__idiidi);
 
-// EXTERNAL MODULE: ./assets/sounds/33278__erlingx__1gear.mp4
-var _3278__erlingx__1gear = __webpack_require__("6vKB");
-var _3278__erlingx__1gear_default = /*#__PURE__*/__webpack_require__.n(_3278__erlingx__1gear);
+// EXTERNAL MODULE: ./assets/sounds/33278_185990-lq.mp3
+var _3278_185990_lq = __webpack_require__("hcrO");
+var _3278_185990_lq_default = /*#__PURE__*/__webpack_require__.n(_3278_185990_lq);
 
 // CONCATENATED MODULE: ./components/app.js
 
@@ -728,13 +721,11 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 
 
 
-var scoreOptions = [5, 25, 75, 100, -10, -25];
-var bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 var sounds = {
 	bing: _3299__erlingx__spring_default.a,
 	buzz: _3294__erlingx__goingdown_default.a,
 	bonus: _3295__erlingx__idiidi_default.a,
-	reset: _3278__erlingx__1gear_default.a,
+	reset: _3278_185990_lq_default.a,
 	none: null
 };
 
@@ -778,9 +769,36 @@ var app_App = function (_Component) {
 
 		_this.setBonus = function (e, letter) {
 			var bonus = _this.state.bonus;
-			if (!bonus.has(letter)) _this.playSound('bonus');
-			bonus.add(letter);
-			_this.setState({ bonus: bonus });
+			var score = _this.state.score;
+
+			if (!bonus.has(letter)) {
+				_this.playSound('bonus');
+				bonus.add(letter);
+				switch (bonus.size) {
+					case 0:
+						break;
+					case 1:
+						score += 5;break; //5 points for 1 letter
+					case 2:
+						score += 20 - 5;break; //10 points for each letter - the 5 from having one letter
+					case 3:
+						score += 45 - 20;break; //15 points for each letter - the 20 from having 2 letters
+					case 4:
+						score += 80 - 45;break; // 20 * letter - 3 letter bonus
+					case 5:
+						score += 125 - 80;break; //25 * letter - 4 letter bonus
+					case 6:
+						{
+							score += 180 - 125; //30 * letter - 5 letter bonus 
+							break;
+						}
+				}
+			}
+			_this.setState({ bonus: bonus, score: score });
+			if (bonus.size == 6) setTimeout(function () {
+				bonus.clear;
+				_this.setState({ bonus: bonus });
+			}, 500);
 		};
 
 		_this.handleRoute = function (e) {
@@ -788,6 +806,8 @@ var app_App = function (_Component) {
 		};
 
 		_this.state = {
+			scoreOptions: [5, 25, 75, 100, -10, -25],
+			bonusLetters: new Set(['p', 'o', 'i', 'n', 't', 's']),
 			score: 0,
 			bonus: new Set(),
 			newScore: false
@@ -816,7 +836,7 @@ var app_App = function (_Component) {
 				{ onChange: this.handleRoute },
 				Object(preact_min["h"])(home, {
 					path: '/',
-					config: { bonusConfig: bonusLetters, scoreConfig: scoreOptions },
+					config: { bonusConfig: this.state.bonusLetters, scoreConfig: this.state.scoreOptions },
 					score: this.state.score,
 					bonus: this.state.bonus,
 					newScore: this.state.newScore,
@@ -1063,6 +1083,13 @@ module.exports = {"profile":"profile__1f25-"};
 
 // removed by extract-text-webpack-plugin
 module.exports = {"home":"home__2Q5nZ","newScore":"newScore__GKKxw","score":"score__1ta9Y","controlArea":"controlArea__1QwF6","bonusArea":"bonusArea__1nXn1","buttonArea":"buttonArea__2fQgl","highlight":"highlight__1rY8f","pointButton":"pointButton__1gKfb","bonusButton":"bonusButton__1GPus","resetButton":"resetButton__1SGXG"};
+
+/***/ }),
+
+/***/ "hcrO":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "335be00cb338795b311b720ff1baac11.mp3";
 
 /***/ }),
 
