@@ -66,6 +66,13 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "/IKS":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "23f21e3c6909d2e3799caa9fc9a3f7fb.ogg";
+
+/***/ }),
+
 /***/ "/QC5":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -451,6 +458,27 @@ Router.Link = Link;
 
 /***/ }),
 
+/***/ "/hAC":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "adb6e23ba56bf13d4398420a3e849164.ogg";
+
+/***/ }),
+
+/***/ "8IgM":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "8281309efaa5353aee5fe62a3eb711e8.ogg";
+
+/***/ }),
+
+/***/ "D1tX":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "7b87f7facc356fac2e149c55475faecd.ogg";
+
+/***/ }),
+
 /***/ "JkW7":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -678,6 +706,22 @@ var profile_Profile = function (_Component) {
 }(preact_min["Component"]);
 
 
+// EXTERNAL MODULE: ./assets/up.ogg
+var up = __webpack_require__("/hAC");
+var up_default = /*#__PURE__*/__webpack_require__.n(up);
+
+// EXTERNAL MODULE: ./assets/buzz.ogg
+var buzz = __webpack_require__("/IKS");
+var buzz_default = /*#__PURE__*/__webpack_require__.n(buzz);
+
+// EXTERNAL MODULE: ./assets/bell.ogg
+var bell = __webpack_require__("D1tX");
+var bell_default = /*#__PURE__*/__webpack_require__.n(bell);
+
+// EXTERNAL MODULE: ./assets/reset.ogg
+var assets_reset = __webpack_require__("8IgM");
+var reset_default = /*#__PURE__*/__webpack_require__.n(assets_reset);
+
 // CONCATENATED MODULE: ./components/app.js
 
 
@@ -696,13 +740,19 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 
 
 
+
+
+
+
+
 var scoreOptions = [5, 25, 75, 100, -10, -25];
 var bonusLetters = new Set(['p', 'o', 'i', 'n', 't', 's']);
 var sounds = {
-	bing: (!Object({}).production ? '..' : '.') + '/assets/up.ogg',
-	buzz: (!Object({}).production ? '..' : '.') + '/assets/buzz.ogg',
-	bonus: (!Object({}).production ? '..' : '.') + '/assets/bell.ogg',
-	reset: (!Object({}).production ? '..' : '.') + '/assets/reset.ogg'
+	bing: up_default.a,
+	buzz: buzz_default.a,
+	bonus: bell_default.a,
+	reset: reset_default.a,
+	none: null
 };
 
 var app__ref = Object(preact_min["h"])(header, null);
