@@ -527,7 +527,7 @@ var header_Header = function Header() {
 			Object(preact_min["h"])(
 				match["Link"],
 				{ activeClassName: header_style_default.a.active, href: '/' },
-				'Home'
+				'Show Score'
 			)
 		)
 	);
@@ -566,7 +566,7 @@ var home_Home = function Home(props) {
 					return Object(preact_min["h"])(
 						'div',
 						{ 'class': home_style_default.a.pointButton, key: score, onClick: function onClick(e) {
-								return props.addToScore(e, score);
+								return props.addToScore(e, score, _this.audio);
 							} },
 						score
 					);
@@ -581,7 +581,7 @@ var home_Home = function Home(props) {
 					return Object(preact_min["h"])(
 						'div',
 						{ 'class': props.bonus.has(letter) ? home_style_default.a.highlight : home_style_default.a.bonusButton, key: letter, onClick: function onClick(e) {
-								return props.setBonus(e, letter);
+								return props.setBonus(e, letter, _this.audio);
 							} },
 						letter
 					);
@@ -590,14 +590,11 @@ var home_Home = function Home(props) {
 			Object(preact_min["h"])(
 				'div',
 				{ 'class': home_style_default.a.resetButton, onClick: function onClick(e) {
-						return props.resetScore(e);
+						return props.resetScore(e, _this.audio);
 					} },
 				'Reset'
 			)
-		),
-		props.sound !== 'none' && Object(preact_min["h"])('audio', { ref: function ref(c) {
-				return _this.audio = c;
-			}, src: props.sound, autoPlay: true })
+		)
 	);
 };
 
@@ -769,33 +766,35 @@ var app_App = function (_Component) {
 
 		var _this = app__possibleConstructorReturn(this, _Component.call(this, props));
 
-		_this.deBounce = function (delay, element) {
-			var resetVal = element === 'sound' ? 'none' : false;
-			setTimeout(function () {
-				var _this$setState;
-
-				return _this.setState((_this$setState = {}, _this$setState[element] = resetVal, _this$setState));
-			}, delay);
+		_this.playSound = function (sound) {
+			if (_this.audio) {
+				_this.audio.src = sounds[sound];
+				_this.audio.play();
+			} else {
+				console.error('no audio tag found');
+			}
 		};
 
 		_this.addToScore = function (e, points) {
 			var score = _this.state.score + points;
 			var sound = points > 0 ? 'bing' : 'buzz';
-			_this.setState({ score: score, sound: sound, newScore: true });
-			_this.deBounce(500, 'newScore');
-			_this.deBounce(points > 0 ? 1000 : 750, 'sound');
+			_this.playSound(sound);
+			_this.setState({ score: score, newScore: true });
+			setTimeout(function () {
+				return _this.setState({ newScore: false });
+			}, 500);
 		};
 
 		_this.resetScore = function (e) {
-			_this.setState({ score: 0, sound: 'reset', bonus: new Set() });
-			_this.deBounce(2500, 'sound');
+			_this.playSound('reset');
+			_this.setState({ score: 0, bonus: new Set() });
 		};
 
 		_this.setBonus = function (e, letter) {
 			var bonus = _this.state.bonus;
+			if (!bonus.has(letter)) _this.playSound('bonus');
 			bonus.add(letter);
-			_this.setState({ bonus: bonus, sound: 'bonus' });
-			_this.deBounce(500, 'sound');
+			_this.setState({ bonus: bonus });
 		};
 
 		_this.handleRoute = function (e) {
@@ -805,8 +804,7 @@ var app_App = function (_Component) {
 		_this.state = {
 			score: 0,
 			bonus: new Set(),
-			newScore: false,
-			sound: 'none'
+			newScore: false
 		};
 		return _this;
 	}
@@ -818,9 +816,14 @@ var app_App = function (_Component) {
 
 
 	App.prototype.render = function render() {
+		var _this2 = this;
+
 		return Object(preact_min["h"])(
 			'div',
 			{ id: 'app' },
+			Object(preact_min["h"])('audio', { ref: function ref(c) {
+					return _this2.audio = c;
+				} }),
 			app__ref,
 			Object(preact_min["h"])(
 				preact_router_es["Router"],
@@ -831,10 +834,10 @@ var app_App = function (_Component) {
 					score: this.state.score,
 					bonus: this.state.bonus,
 					newScore: this.state.newScore,
-					sound: sounds[this.state.sound],
 					addToScore: this.addToScore,
 					resetScore: this.resetScore,
-					setBonus: this.setBonus }),
+					setBonus: this.setBonus
+				}),
 				app__ref2,
 				_ref3
 			)
