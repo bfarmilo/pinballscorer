@@ -74,9 +74,9 @@ export default class App extends Component {
 				}
 			}
 		}
-		this.setState({ bonus });
+		this.setState({ bonus, score });
 		if (bonus.size == 6) {
-			[0, 1, 2, 3].map(delay => setTimeout(() => this.setState({ bonus: (delay % 2 === 0) ? bonus : new Set() }), delay * 250 + 500))
+			[0, 1, 2, 3, 4, 5].map(delay => setTimeout(() => this.setState({ bonus: (delay % 2 === 0) ? bonus : new Set() }), delay * 250 + 500))
 		}
 	}
 
