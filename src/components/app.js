@@ -7,9 +7,9 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 
-import bing from '../assets/sounds/33299__erlingx__spring.mp4';
-import buzz from '../assets/sounds/33294__erlingx__goingdown.mp4';
-import bonus from '../assets/sounds/33295__erlingx__idiidi.m4a';
+import bing from '../assets/sounds/220173_4100837-lq.mp3';
+import buzz from '../assets/sounds/33294_185990-lq.mp3';
+import bonus from '../assets/sounds/337049_3232293-lq.mp3';
 import reset from '../assets/sounds/33278_185990-lq.mp3';
 
 const sounds = {
@@ -74,11 +74,10 @@ export default class App extends Component {
 				}
 			}
 		}
-		this.setState({ bonus, score });
-		if (bonus.size == 6) setTimeout(() => {
-			bonus.clear;
-			this.setState({ bonus })
-		}, 500)
+		this.setState({ bonus });
+		if (bonus.size == 6) {
+			[0, 1, 2, 3].map(delay => setTimeout(() => this.setState({ bonus: (delay % 2 === 0) ? bonus : new Set() }), delay * 250 + 500))
+		}
 	}
 
 	/** Gets fired when the route changes.
@@ -92,7 +91,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
-				<audio ref={c => this.audio = c}/>
+				<audio ref={c => this.audio = c} />
 				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home

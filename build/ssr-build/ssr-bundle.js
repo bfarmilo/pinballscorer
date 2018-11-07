@@ -451,13 +451,6 @@ Router.Link = Link;
 
 /***/ }),
 
-/***/ "FPU9":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "9570f62583317d3dff727da41d8bbceb.m4a";
-
-/***/ }),
-
 /***/ "JkW7":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -682,17 +675,17 @@ var profile_Profile = function (_Component) {
 }(preact_min["Component"]);
 
 
-// EXTERNAL MODULE: ./assets/sounds/33299__erlingx__spring.mp4
-var _3299__erlingx__spring = __webpack_require__("z51x");
-var _3299__erlingx__spring_default = /*#__PURE__*/__webpack_require__.n(_3299__erlingx__spring);
+// EXTERNAL MODULE: ./assets/sounds/220173_4100837-lq.mp3
+var _20173_4100837_lq = __webpack_require__("iqxZ");
+var _20173_4100837_lq_default = /*#__PURE__*/__webpack_require__.n(_20173_4100837_lq);
 
-// EXTERNAL MODULE: ./assets/sounds/33294__erlingx__goingdown.mp4
-var _3294__erlingx__goingdown = __webpack_require__("K3Ne");
-var _3294__erlingx__goingdown_default = /*#__PURE__*/__webpack_require__.n(_3294__erlingx__goingdown);
+// EXTERNAL MODULE: ./assets/sounds/33294_185990-lq.mp3
+var _3294_185990_lq = __webpack_require__("ju8h");
+var _3294_185990_lq_default = /*#__PURE__*/__webpack_require__.n(_3294_185990_lq);
 
-// EXTERNAL MODULE: ./assets/sounds/33295__erlingx__idiidi.m4a
-var _3295__erlingx__idiidi = __webpack_require__("FPU9");
-var _3295__erlingx__idiidi_default = /*#__PURE__*/__webpack_require__.n(_3295__erlingx__idiidi);
+// EXTERNAL MODULE: ./assets/sounds/337049_3232293-lq.mp3
+var _37049_3232293_lq = __webpack_require__("UtMP");
+var _37049_3232293_lq_default = /*#__PURE__*/__webpack_require__.n(_37049_3232293_lq);
 
 // EXTERNAL MODULE: ./assets/sounds/33278_185990-lq.mp3
 var _3278_185990_lq = __webpack_require__("hcrO");
@@ -722,9 +715,9 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 
 
 var sounds = {
-	bing: _3299__erlingx__spring_default.a,
-	buzz: _3294__erlingx__goingdown_default.a,
-	bonus: _3295__erlingx__idiidi_default.a,
+	bing: _20173_4100837_lq_default.a,
+	buzz: _3294_185990_lq_default.a,
+	bonus: _37049_3232293_lq_default.a,
 	reset: _3278_185990_lq_default.a,
 	none: null
 };
@@ -794,11 +787,14 @@ var app_App = function (_Component) {
 						}
 				}
 			}
-			_this.setState({ bonus: bonus, score: score });
-			if (bonus.size == 6) setTimeout(function () {
-				bonus.clear;
-				_this.setState({ bonus: bonus });
-			}, 500);
+			_this.setState({ bonus: bonus });
+			if (bonus.size == 6) {
+				[0, 1, 2, 3].map(function (delay) {
+					return setTimeout(function () {
+						return _this.setState({ bonus: delay % 2 === 0 ? bonus : new Set() });
+					}, delay * 250 + 500);
+				});
+			}
 		};
 
 		_this.handleRoute = function (e) {
@@ -859,13 +855,6 @@ var app_App = function (_Component) {
 
 
 /* harmony default export */ var index = __webpack_exports__["default"] = (app_App);
-
-/***/ }),
-
-/***/ "K3Ne":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "edf6abbea552c188f444cdc1e055cd56.mp4";
 
 /***/ }),
 
@@ -1078,6 +1067,13 @@ module.exports = {"profile":"profile__1f25-"};
 
 /***/ }),
 
+/***/ "UtMP":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "8aae2425b75cb655d550ad341cc59114.mp3";
+
+/***/ }),
+
 /***/ "ZAL5":
 /***/ (function(module, exports) {
 
@@ -1090,6 +1086,20 @@ module.exports = {"home":"home__2Q5nZ","newScore":"newScore__GKKxw","score":"sco
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "335be00cb338795b311b720ff1baac11.mp3";
+
+/***/ }),
+
+/***/ "iqxZ":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "db14fb32ef6ae566f57a35b56bb67e08.mp3";
+
+/***/ }),
+
+/***/ "ju8h":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "fbbcaae88c905a492e19716c7a9a6ef4.mp3";
 
 /***/ }),
 
@@ -1212,13 +1222,6 @@ Match.Link = Link;
 
 // removed by extract-text-webpack-plugin
 module.exports = {"header":"header__2MqSo","active":"active__27Q54"};
-
-/***/ }),
-
-/***/ "z51x":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "931641dc586cb31e861d6e2358a9f03b.mp4";
 
 /***/ })
 
