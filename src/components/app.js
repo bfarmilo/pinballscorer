@@ -28,34 +28,37 @@ export default class App extends Component {
 		this.state = {
 			score: 0,
 			bonus: new Set(),
-			newScore: false,
-			sound: 'none'
+			newScore: false
 		};
 	}
 
-	deBounce = (delay, element) => {
-		const resetVal = element === 'sound' ? 'none' : false;
-		setTimeout(() => this.setState({ [element]: resetVal }), delay);
+	playSound = sound => {
+		if (this.audio) {
+			this.audio.src = sounds[sound];
+			this.audio.play();
+		} else {
+			console.error('no audio tag found');
+		}
 	}
 
 	addToScore = (e, points) => {
 		const score = this.state.score + points;
 		const sound = points > 0 ? 'bing' : 'buzz';
-		this.setState({ score, sound, newScore: true });
-		this.deBounce(500, 'newScore');
-		this.deBounce(points > 0 ? 1000 : 750, 'sound')
+		this.playSound(sound);
+		this.setState({ score, newScore: true });
+		setTimeout(() => this.setState({ newScore: false }), 500);
 	}
 
 	resetScore = e => {
-		this.setState({ score: 0, sound: 'reset', bonus: new Set() });
-		this.deBounce(2500, 'sound');
+		this.playSound('reset');
+		this.setState({ score: 0, bonus: new Set() });
 	}
 
 	setBonus = (e, letter) => {
 		const bonus = this.state.bonus;
+		if (!bonus.has(letter)) this.playSound('bonus');
 		bonus.add(letter);
-		this.setState({ bonus, sound: 'bonus' });
-		this.deBounce(500, 'sound');
+		this.setState({ bonus });
 	}
 
 	/** Gets fired when the route changes.
@@ -69,6 +72,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
+				<audio ref={c => this.audio = c} />
 				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home
@@ -77,10 +81,10 @@ export default class App extends Component {
 						score={this.state.score}
 						bonus={this.state.bonus}
 						newScore={this.state.newScore}
-						sound={sounds[this.state.sound]}
 						addToScore={this.addToScore}
 						resetScore={this.resetScore}
-						setBonus={this.setBonus} />
+						setBonus={this.setBonus}
+					/>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
