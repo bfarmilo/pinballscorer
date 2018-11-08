@@ -2,9 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/farmilos/public_html/pinballscorer/
-    - export ALTDEPLOY=/home/farmilos/www.farmilostrategy.com/pinballscorer/
     - /bin/rm -rf $DEPLOYPATH/*
     - /bin/cp -R build/. $DEPLOYPATH
-    - /bin/rm -rf $ALTDEPLOY/*.js
-    - /bin/rm -rf $ALTDEPLOY/*.map
-    - /bin/cp -R build/. $ALTDEPLOY
