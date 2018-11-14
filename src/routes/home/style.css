@@ -4,6 +4,15 @@
 	width: 100%;
 }
 
+.extraBall {
+	background-color:white;
+
+}
+
+.litExtra {
+	background-color:yellow;
+}
+
 .newScore {
 	font-family: 'Press Start 2P', Arial;
 	display:flex;

@@ -13,11 +13,17 @@ import bonus from '../assets/sounds/337049_3232293-lq.mp3';
 import reset from '../assets/sounds/33278_185990-lq.mp3';
 
 const sounds = {
-	bing,
-	buzz,
-	bonus,
-	reset,
-	none: null
+	good: { url: bing, volume: 0.8 },
+	bad: { url: buzz, volume: 0.6 },
+	bonus: { url: bonus, volume: 0.8 },
+	reset: { url: reset, volume: 0.5 },
+	none: { url: null, volume: 0 }
+}
+
+const extraStyle = {
+	0: { backgroundColor: 'white' },
+	1: { backgroundColor: 'yellow' },
+	2: { backgroundColor: 'green' }
 }
 
 export default class App extends Component {
@@ -26,6 +32,8 @@ export default class App extends Component {
 		this.state = {
 			scoreOptions: [5, 25, 75, 100, -10, -25],
 			bonusLetters: new Set(['p', 'o', 'i', 'n', 't', 's']),
+			extraBall: 0,
+			extraFromScore: false,
 			score: 0,
 			bonus: new Set(),
 			newScore: false
@@ -34,7 +42,8 @@ export default class App extends Component {
 
 	playSound = sound => {
 		if (this.audio) {
-			this.audio.src = sounds[sound];
+			this.audio.src = sounds[sound].url;
+			this.audio.volume = sounds[sound].volume;
 			this.audio.play();
 		} else {
 			console.error('no audio tag found');
@@ -43,7 +52,11 @@ export default class App extends Component {
 
 	addToScore = (e, points) => {
 		const score = this.state.score + points;
-		const sound = points > 0 ? 'bing' : 'buzz';
+		const sound = points > 0 ? 'good' : 'bad';
+		const extraFromScore = this.state.extraFromScore;
+		if (extraFromScore === false && score > 500 && this.state.extraBall < 2) {
+			this.setState({ extraFromScore: true, extraBall: this.state.extraBall + 1 });
+		};
 		this.playSound(sound);
 		this.setState({ score, newScore: true });
 		setTimeout(() => this.setState({ newScore: false }), 500);
@@ -51,7 +64,11 @@ export default class App extends Component {
 
 	resetScore = e => {
 		this.playSound('reset');
-		this.setState({ score: 0, bonus: new Set() });
+		if (this.state.extraBall < 1) {
+			this.setState({ score: 0, bonus: new Set(), extraBall: 0 });
+		} else {
+			this.setState({ extraBall: this.state.extraBall - 1 });
+		}
 	}
 
 	setBonus = (e, letter) => {
@@ -76,6 +93,7 @@ export default class App extends Component {
 		}
 		this.setState({ bonus, score });
 		if (bonus.size == 6) {
+			if (this.state.extraBall < 2) this.setState({ extraBall: this.state.extraBall + 1 });
 			[0, 1, 2, 3, 4, 5].map(delay => setTimeout(() => this.setState({ bonus: (delay % 2 === 0) ? bonus : new Set() }), delay * 250 + 500))
 		}
 	}
@@ -103,6 +121,8 @@ export default class App extends Component {
 						addToScore={this.addToScore}
 						resetScore={this.resetScore}
 						setBonus={this.setBonus}
+						extraBallLit={this.state.extraBall}
+						extra={extraStyle}
 					/>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />

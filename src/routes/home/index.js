@@ -4,7 +4,10 @@ import style from './style';
 const Home = props => (
 	<div class={style.home}>
 		<div class={style.controlArea}>
-			<div class={props.newScore ? style.newScore : style.score}>{props.score}</div>
+			<div>
+				<div class={props.newScore ? style.newScore : style.score}>{props.score}</div>
+				<div style={props.extra[props.extraBallLit]}>Extra Ball</div>
+			</div>
 			<div class={style.buttonArea} style={{ gridTemplateColumns: props.config.scoreConfig.map(score => `1fr`).join(' ') }}>
 				{props.config.scoreConfig.map(score => (
 					<div class={style.pointButton} key={score} onClick={e => props.addToScore(e, score, this.audio)}>
@@ -19,7 +22,7 @@ const Home = props => (
 					</div>
 				))}
 			</div>
-			<div class={style.resetButton} onClick={e => props.resetScore(e, this.audio)}>Reset</div>
+			<div class={style.resetButton} onClick={e => props.resetScore(e, this.audio)}>{props.extraBallLit>0 ? 'Shoot Again' : 'New Game'}</div>
 		</div>
 	</div >
 );
