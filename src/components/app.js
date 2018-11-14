@@ -21,9 +21,9 @@ const sounds = {
 }
 
 const extraStyle = {
-	0: { backgroundColor: 'white' },
-	1: { backgroundColor: 'yellow' },
-	2: { backgroundColor: 'green' }
+	0: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'white' },
+	1: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'yellow' },
+	2: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'green' }
 }
 
 export default class App extends Component {
@@ -35,6 +35,7 @@ export default class App extends Component {
 			extraBall: 0,
 			extraFromScore: false,
 			score: 0,
+			ball: 3,
 			bonus: new Set(),
 			newScore: false
 		};
@@ -64,10 +65,14 @@ export default class App extends Component {
 
 	resetScore = e => {
 		this.playSound('reset');
-		if (this.state.extraBall < 1) {
-			this.setState({ score: 0, bonus: new Set(), extraBall: 0 });
+		if (this.state.extraBall == 0) {
+			if (this.state.ball < 2) {
+				this.setState({ score: 0, bonus: new Set(), ball: 3, extraBall: 0, extraFromScore: false })
+			} else {
+				this.setState({ ball: this.state.ball - 1 });
+			}
 		} else {
-			this.setState({ extraBall: this.state.extraBall - 1 });
+			this.setState({ extraBall: this.state.extraBall - 1 })
 		}
 	}
 
@@ -123,6 +128,7 @@ export default class App extends Component {
 						setBonus={this.setBonus}
 						extraBallLit={this.state.extraBall}
 						extra={extraStyle}
+						ballNumber={this.state.ball}
 					/>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />

@@ -510,6 +510,26 @@ var header_Header = function Header() {
 var home_style = __webpack_require__("ZAL5");
 var home_style_default = /*#__PURE__*/__webpack_require__.n(home_style);
 
+// CONCATENATED MODULE: ./routes/home/circle.js
+
+
+
+var circle__ref = Object(preact_min["h"])("path", { d: "M240 24c115.2 0 209.6 94.4 209.6 209.6s-94.4 209.6-209.6 209.6-209.6-94.4-209.6-209.6 94.4-209.6 209.6-209.6zm0-30.4c-132.8 0-240 107.2-240 240s107.2 240 240 240 240-107.2 240-240-107.2-240-240-240zm80 256h-160c-9.6 0-16-6.4-16-16s6.4-16 16-16h160c9.6 0 16 6.4 16 16s-6.4 16-16 16zm-80 80c-9.6 0-16-6.4-16-16v-160c0-9.6 6.4-16 16-16s16 6.4 16 16v160c0 9.6-6.4 16-16 16z" });
+
+var circle_Circle = function Circle(props) {
+    return Object(preact_min["h"])(
+        "div",
+        null,
+        Object(preact_min["h"])(
+            "svg",
+            { width: props.width, height: props.height, xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" },
+            Object(preact_min["h"])("circle", { style: { fill: props.color }, cx: "240", cy: "240", r: "209.6" }),
+            circle__ref
+        )
+    );
+};
+
+/* harmony default export */ var circle = (circle_Circle);
 // CONCATENATED MODULE: ./routes/home/index.js
 var _this = this;
 
@@ -517,7 +537,16 @@ var _this = this;
 
 
 
+
+var home__ref = Object(preact_min["h"])(
+	'div',
+	null,
+	'Extra Ball'
+);
+
 var home_Home = function Home(props) {
+	var testArray = new Array(props.extraBallLit).fill(1);
+	console.log(testArray);
 	return Object(preact_min["h"])(
 		'div',
 		{ 'class': home_style_default.a.home },
@@ -526,7 +555,7 @@ var home_Home = function Home(props) {
 			{ 'class': home_style_default.a.controlArea },
 			Object(preact_min["h"])(
 				'div',
-				null,
+				{ style: { display: 'grid', gridTemplateColumns: '4fr 1fr' } },
 				Object(preact_min["h"])(
 					'div',
 					{ 'class': props.newScore ? home_style_default.a.newScore : home_style_default.a.score },
@@ -534,8 +563,24 @@ var home_Home = function Home(props) {
 				),
 				Object(preact_min["h"])(
 					'div',
-					{ style: props.extra[props.extraBallLit] },
-					'Extra Ball'
+					{ style: { display: 'grid', gridTemplateRows: '1fr 1fr' } },
+					Object(preact_min["h"])(
+						'div',
+						null,
+						home__ref,
+						Object(preact_min["h"])(
+							'div',
+							{ style: { display: 'flex', justifyContent: 'space-evenly' } },
+							testArray.map(function (item, index) {
+								return Object(preact_min["h"])(circle, { key: index, width: '30px', height: '30px', color: 'yellow' });
+							})
+						)
+					),
+					Object(preact_min["h"])(
+						'div',
+						{ style: { display: 'flex', justifyContent: 'center', fontSize: '40px', fontFamily: '"Press Start 2P"' } },
+						4 - props.ballNumber
+					)
 				)
 			),
 			Object(preact_min["h"])(
@@ -570,10 +615,10 @@ var home_Home = function Home(props) {
 			),
 			Object(preact_min["h"])(
 				'div',
-				{ 'class': home_style_default.a.resetButton, onClick: function onClick(e) {
+				{ 'class': home_style_default.a.resetButton, style: props.ballNumber === 1 && props.extraBallLit === 0 ? { backgroundColor: 'purple' } : {}, onClick: function onClick(e) {
 						return props.resetScore(e, _this.audio);
 					} },
-				props.extraBallLit > 0 ? 'Shoot Again' : 'New Game'
+				props.ballNumber == 1 && props.extraBallLit === 0 ? 'New Game' : 'Shoot Again'
 			)
 		)
 	);
@@ -732,9 +777,9 @@ var sounds = {
 };
 
 var extraStyle = {
-	0: { backgroundColor: 'white' },
-	1: { backgroundColor: 'yellow' },
-	2: { backgroundColor: 'green' }
+	0: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'white' },
+	1: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'yellow' },
+	2: { width: '30px', height: '30px', borderRadius: '40px', backgroundColor: 'green' }
 };
 
 var app__ref = Object(preact_min["h"])(header, null);
@@ -777,8 +822,12 @@ var app_App = function (_Component) {
 
 		_this.resetScore = function (e) {
 			_this.playSound('reset');
-			if (_this.state.extraBall < 1) {
-				_this.setState({ score: 0, bonus: new Set(), extraBall: 0 });
+			if (_this.state.extraBall == 0) {
+				if (_this.state.ball < 2) {
+					_this.setState({ score: 0, bonus: new Set(), ball: 3, extraBall: 0, extraFromScore: false });
+				} else {
+					_this.setState({ ball: _this.state.ball - 1 });
+				}
 			} else {
 				_this.setState({ extraBall: _this.state.extraBall - 1 });
 			}
@@ -832,6 +881,7 @@ var app_App = function (_Component) {
 			extraBall: 0,
 			extraFromScore: false,
 			score: 0,
+			ball: 3,
 			bonus: new Set(),
 			newScore: false
 		};
@@ -867,7 +917,8 @@ var app_App = function (_Component) {
 					resetScore: this.resetScore,
 					setBonus: this.setBonus,
 					extraBallLit: this.state.extraBall,
-					extra: extraStyle
+					extra: extraStyle,
+					ballNumber: this.state.ball
 				}),
 				app__ref2,
 				_ref3
@@ -883,7 +934,7 @@ var app_App = function (_Component) {
 
 
 
-/* harmony default export */ var index = __webpack_exports__["default"] = (app_App);
+/* harmony default export */ var index_0 = __webpack_exports__["default"] = (app_App);
 
 /***/ }),
 
