@@ -526,8 +526,17 @@ var home_Home = function Home(props) {
 			{ 'class': home_style_default.a.controlArea },
 			Object(preact_min["h"])(
 				'div',
-				{ 'class': props.newScore ? home_style_default.a.newScore : home_style_default.a.score },
-				props.score
+				null,
+				Object(preact_min["h"])(
+					'div',
+					{ 'class': props.newScore ? home_style_default.a.newScore : home_style_default.a.score },
+					props.score
+				),
+				Object(preact_min["h"])(
+					'div',
+					{ style: props.extra[props.extraBallLit] },
+					'Extra Ball'
+				)
 			),
 			Object(preact_min["h"])(
 				'div',
@@ -564,7 +573,7 @@ var home_Home = function Home(props) {
 				{ 'class': home_style_default.a.resetButton, onClick: function onClick(e) {
 						return props.resetScore(e, _this.audio);
 					} },
-				'Reset'
+				props.extraBallLit > 0 ? 'Shoot Again' : 'New Game'
 			)
 		)
 	);
@@ -715,11 +724,17 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 
 
 var sounds = {
-	bing: _20173_4100837_lq_default.a,
-	buzz: _3294_185990_lq_default.a,
-	bonus: _37049_3232293_lq_default.a,
-	reset: _3278_185990_lq_default.a,
-	none: null
+	good: { url: _20173_4100837_lq_default.a, volume: 0.8 },
+	bad: { url: _3294_185990_lq_default.a, volume: 0.6 },
+	bonus: { url: _37049_3232293_lq_default.a, volume: 0.8 },
+	reset: { url: _3278_185990_lq_default.a, volume: 0.5 },
+	none: { url: null, volume: 0 }
+};
+
+var extraStyle = {
+	0: { backgroundColor: 'white' },
+	1: { backgroundColor: 'yellow' },
+	2: { backgroundColor: 'green' }
 };
 
 var app__ref = Object(preact_min["h"])(header, null);
@@ -738,7 +753,8 @@ var app_App = function (_Component) {
 
 		_this.playSound = function (sound) {
 			if (_this.audio) {
-				_this.audio.src = sounds[sound];
+				_this.audio.src = sounds[sound].url;
+				_this.audio.volume = sounds[sound].volume;
 				_this.audio.play();
 			} else {
 				console.error('no audio tag found');
@@ -747,7 +763,11 @@ var app_App = function (_Component) {
 
 		_this.addToScore = function (e, points) {
 			var score = _this.state.score + points;
-			var sound = points > 0 ? 'bing' : 'buzz';
+			var sound = points > 0 ? 'good' : 'bad';
+			var extraFromScore = _this.state.extraFromScore;
+			if (extraFromScore === false && score > 500 && _this.state.extraBall < 2) {
+				_this.setState({ extraFromScore: true, extraBall: _this.state.extraBall + 1 });
+			};
 			_this.playSound(sound);
 			_this.setState({ score: score, newScore: true });
 			setTimeout(function () {
@@ -757,7 +777,11 @@ var app_App = function (_Component) {
 
 		_this.resetScore = function (e) {
 			_this.playSound('reset');
-			_this.setState({ score: 0, bonus: new Set() });
+			if (_this.state.extraBall < 1) {
+				_this.setState({ score: 0, bonus: new Set(), extraBall: 0 });
+			} else {
+				_this.setState({ extraBall: _this.state.extraBall - 1 });
+			}
 		};
 
 		_this.setBonus = function (e, letter) {
@@ -789,6 +813,7 @@ var app_App = function (_Component) {
 			}
 			_this.setState({ bonus: bonus, score: score });
 			if (bonus.size == 6) {
+				if (_this.state.extraBall < 2) _this.setState({ extraBall: _this.state.extraBall + 1 });
 				[0, 1, 2, 3, 4, 5].map(function (delay) {
 					return setTimeout(function () {
 						return _this.setState({ bonus: delay % 2 === 0 ? bonus : new Set() });
@@ -804,6 +829,8 @@ var app_App = function (_Component) {
 		_this.state = {
 			scoreOptions: [5, 25, 75, 100, -10, -25],
 			bonusLetters: new Set(['p', 'o', 'i', 'n', 't', 's']),
+			extraBall: 0,
+			extraFromScore: false,
 			score: 0,
 			bonus: new Set(),
 			newScore: false
@@ -838,7 +865,9 @@ var app_App = function (_Component) {
 					newScore: this.state.newScore,
 					addToScore: this.addToScore,
 					resetScore: this.resetScore,
-					setBonus: this.setBonus
+					setBonus: this.setBonus,
+					extraBallLit: this.state.extraBall,
+					extra: extraStyle
 				}),
 				app__ref2,
 				_ref3
@@ -1078,7 +1107,7 @@ module.exports = __webpack_require__.p + "8aae2425b75cb655d550ad341cc59114.mp3";
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"home":"home__2Q5nZ","newScore":"newScore__GKKxw","score":"score__1ta9Y","controlArea":"controlArea__1QwF6","bonusArea":"bonusArea__1nXn1","buttonArea":"buttonArea__2fQgl","highlight":"highlight__1rY8f","pointButton":"pointButton__1gKfb","bonusButton":"bonusButton__1GPus","resetButton":"resetButton__1SGXG"};
+module.exports = {"home":"home__2Q5nZ","extraBall":"extraBall__3K65Q","litExtra":"litExtra__3yXdu","newScore":"newScore__GKKxw","score":"score__1ta9Y","controlArea":"controlArea__1QwF6","bonusArea":"bonusArea__1nXn1","buttonArea":"buttonArea__2fQgl","highlight":"highlight__1rY8f","pointButton":"pointButton__1gKfb","bonusButton":"bonusButton__1GPus","resetButton":"resetButton__1SGXG"};
 
 /***/ }),
 
